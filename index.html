@@ -1,0 +1,1436 @@
+<html>
+  <head>
+
+    <script src="jquery-1.11.3.min.js"></script>
+	<script src="jquery.panzoom.min.js"></script>
+	<script src="jquery.mousewheel.js"></script>
+    <title>Payday 2 Knox</title>
+    <style>
+    @font-face
+    {
+        font-family: 'gunplayregular';
+        src: url('gunplay_rg-webfont.eot');
+        src: url('gunplay_rg-webfont.eot?#iefix') format('embedded-opentype'),
+             url('gunplay_rg-webfont.woff2') format('woff2'),
+             url('gunplay_rg-webfont.woff') format('woff'),
+             url('gunplay_rg-webfont.ttf') format('truetype'),
+             url('gunplay_rg-webfont.svg#gunplayregular') format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+	
+	@font-face
+	{
+	  font-family: 'DINEngschriftStd';
+	  src: url('DINEngschriftStd.eot?#iefix') format('embedded-opentype'),
+		   url('DINEngschriftStd.woff') format('woff'),
+		   url('DINEngschriftStd.ttf')  format('truetype'),
+		   url('DINEngschriftStd.svg#DINEngschriftStd') format('svg');
+	  font-weight: normal;
+	  font-style: normal;
+	}
+	
+	@font-face {
+		font-family: 'lcdnormal';
+		src: url('lcd-n___-webfont.eot');
+		src: url('lcd-n___-webfont.eot?#iefix') format('embedded-opentype'),
+			 url('lcd-n___-webfont.woff2') format('woff2'),
+			 url('lcd-n___-webfont.woff') format('woff'),
+			 url('lcd-n___-webfont.ttf') format('truetype'),
+			 url('lcd-n___-webfont.svg#lcdnormal') format('svg');
+		font-weight: normal;
+		font-style: normal;
+
+	}
+		
+	@font-face
+	{
+		font-family: 'league_gothicregular';
+		src: url('leaguegothic-regular-webfont.eot');
+		src: url('leaguegothic-regular-webfont.eot?#iefix') format('embedded-opentype'),
+			 url('leaguegothic-regular-webfont.woff2') format('woff2'),
+			 url('leaguegothic-regular-webfont.woff') format('woff'),
+			 url('leaguegothic-regular-webfont.ttf') format('truetype'),
+			 url('leaguegothic-regular-webfont.svg#league_gothicregular') format('svg');
+		font-weight: normal;
+		font-style: normal;
+	}
+    
+    h1
+    {
+    	margin: 0px;
+        -ms-transform: rotate(1deg);
+        -webkit-transform: rotate(1deg);
+        transform: rotate(1deg);
+    	background-image: url('grate.png');
+    	background-repeat: repeat;
+    	width: 800px;
+    	height: 100px;
+    	padding: 50px;
+    	margin-left: -50px;
+    	text-shadow: 2px 2px #000000;
+    	font-size: 108px;
+    	line-height: 100px;
+    	text-align: center;
+    	font-family: "gunplayregular";
+    	font-weight: normal;
+    	color: #FFF28E;
+    	margin-bottom: 40px;
+    	margin-top: 50px;
+    }
+	
+	h1.odd
+	{
+		-ms-transform: rotate(-1deg);
+        -webkit-transform: rotate(-1deg);
+        transform: rotate(-1deg);
+	}
+    
+    #poster
+    {
+    	margin-bottom: 50px;
+    }
+    
+    #main
+    {
+    	box-shadow: inset -3px -3px 2px rgba(0,0,0,0.4),
+    	inset 1px 1px 3px rgba(255,255,255, 0.25);
+    	width: 800px;
+    	margin: auto;
+    	margin-top: 50px;
+    	background-image: url('metal.png');
+    	background-repeat: repeat;
+    	padding-left: 30px;
+    	padding-right: 30px;
+    	padding-bottom: 20px;
+    }
+	
+	#main2
+	{
+		box-shadow: inset -3px -3px 2px rgba(0,0,0,0.4),
+    	inset 1px -3px 3px rgba(255,255,255, 0.25);
+    	width: 800px;
+    	margin: auto;
+		padding-top: 20px;
+    	background-image: url('metal.png');
+    	background-repeat: repeat;
+    	padding-left: 30px;
+    	padding-right: 30px;
+	}
+    
+    .photo
+    {
+    	-ms-transform: rotate(-1deg);
+        -webkit-transform: rotate(-1deg);
+        transform: rotate(-1deg);
+    	width: 200px;
+    	height: 200px;
+    	background-color: #FFFFFF;
+    	padding: 10px;
+		padding-bottom: 50px;
+    	background-image: none;
+    	box-shadow: 3px 3px 5px #000000;
+    	cursor: pointer;
+		margin-bottom: 10px;
+    }
+    
+    .left
+    {
+    	float: left;
+    	margin-left: -100px;
+    	margin-right: 25px;
+    }
+    
+    .right
+    {
+    	float: right;
+    	margin-right: -100px;
+    	margin-left: 25px;
+    	-ms-transform: rotate(1deg);
+        -webkit-transform: rotate(1deg);
+        transform: rotate(1deg);
+    }
+    
+    .quote
+    {
+    	font-size: 24px;
+    	font-style: italic;
+    }
+    
+    p
+    {
+      margin-bottom: 24px;
+    }
+    
+        
+    #fullscreen
+    {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      display: none;
+    }
+    
+    #fullscreen img
+    {
+      max-height: 100%;
+      top: 50%;
+      left: 50%;
+      position: absolute;
+      transform: translate(-50%, -50%);
+    }
+    
+    #fullscreenInner
+    {
+      top: 10px;
+      left: 10px;
+      bottom: 10px;
+      right: 10px;
+      position: absolute;
+    }
+    
+    #container
+    {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    
+    #pp
+    {
+		box-shadow: inset -3px -3px 2px rgba(0,0,0,0.4),
+    	inset 1px 1px 3px rgba(255,255,255, 0.25);
+    	background-image: url('diamond.png');
+    	background-repeat: repeat;
+    	margin-top: -40px;
+    	margin-left: 100px;
+    	margin-right: 100px;
+    	position: relative;
+		font-size: 30px;
+		color: transparent;
+		text-shadow: 0px 0px 0.5px white;
+		line-height: 32px;
+		height: 0px;
+		font-family: "DINEngschriftStd";
+		font-weight: normal;
+		padding-top: 56%;
+    }
+    
+    #viewport
+    {
+		box-shadow:  -2px -2px 3px 2px rgba(0,0,0,0.4),
+		1px 1px 3px rgba(255,255,255, 0.25);
+		position: absolute;
+		top: 20px;
+		left: 20px;
+		bottom: 20px;
+		right: 20px;
+		background-image: ;
+		background-repeat: repeat;
+		background-color: black;
+    	background-size: initial;
+    }
+	
+	#overlay
+	{
+		width: 100%;
+		height: 100%;
+		background-image: url(''), url('vignette.png');
+		background-repeat: repeat, no-repeat;
+		background-size: auto auto,100% 100%;
+		position: absolute;
+		z-index: 5;
+		pointer-events: none;
+	}
+	
+	#map img
+	{
+		z-index: 2;
+	}
+	
+	#map:before
+	{
+		content: '';
+		position: absolute;
+		left: -10240px;
+		top: -10240px;
+		width: 20000px;
+		height: 20000px;
+		background-image: url('bg_grid.png'); 
+		z-index: -1;
+		pointer-events: none;
+	}
+    
+    #favors
+    {
+      position: absolute;
+      top: 30px;
+      left: 30px;
+	  z-index: 6;
+    }
+    
+    #preplanning
+    {
+	  position: absolute;
+	  top: 30px;
+	  right: 30px;
+	  z-index: 6;
+    }
+    
+    #preplanningDesc, #preplanningMain
+    {
+	  background-color: rgba(0, 0, 0, 0.5);
+      width: 470px;
+      overflow: hidden;
+      padding: 0px;
+      margin-bottom: 7px;
+	  
+	  border: 15px solid transparent;
+	  -webkit-border-image: url("ppborder.png") 15 repeat;
+	  -o-border-image: url("ppborder.png") 15 repeat;
+	  border-image: url("ppborder.png") 15 repeat;
+    }
+    
+    #preplanningDesc
+    {
+      background-repeat: no-repeat;
+      background-position: 8px 40px;
+	  background-size: 72px 72px;
+      min-height: 120px;
+    }
+    
+    #preplanningDesc span
+    {
+      display: block;
+    }
+    
+    #desc
+    {
+      margin-left: 88px;
+	  margin-top: 8px;
+    }
+    
+    .category, .option, .item, .back1, .back2
+    {
+      display: block;
+      text-shadow: 0px 0px 0.5px #439AC5;
+      padding-left: 36px;
+	  text-transform: uppercase;
+	  position: relative;
+	  line-height: 30px;
+	  height: 30px;
+	  margin-bottom: 2px;
+	  margin-left: 1px;
+	  cursor: pointer;
+	  margin-right: 1px;
+    }
+	
+
+    
+    .children
+    {
+      display: none;
+    }
+	
+	.type:not(:last-of-type)
+	{
+		margin-bottom: 10px;
+	}
+	
+	.typeHeader
+	{
+		padding-left: 22px;
+	}
+	
+	.back1, .back2
+    {
+      padding-left: 21px;
+    }
+    
+    .category.hover, .option.hover, .back1.hover, .back2.hover, .item.hover
+    {
+      background-color: rgba(29, 109, 144, 0.5);
+	  box-shadow: 0px 0px 0.5px 0.5px rgba(29, 109, 144, 0.5);
+  	  text-shadow: 0px 0px 0.5px #63EFFF;
+    }
+    
+    .category
+    {
+      background-size: 0px 0px;
+    }
+    
+    .option, .item
+    {
+      padding-left: 35px;
+      background-size: 36px 36px;
+      background-repeat: no-repeat;
+      background-position: -3px center;
+    }
+	
+	.option
+	{
+		background-size: 0 0;
+	}
+	
+	.option.escape
+	{
+		background-size: 36px 36px;
+	}
+    
+    .option.chosen
+    {
+		text-shadow: 0px 0px 0.5px white;
+		background-color: #5C7754;
+		box-shadow: 0px 0px 0.5px 0.5px #5C7754;
+		background-size: 36px 36px;
+    }
+	
+	.option.chosen.hover
+	{
+		background-color: #508976;
+		box-shadow: 0px 0px 0.5px 0.5px #508976;
+	}
+	
+	.option.invalid, .option.slotTaken
+	{
+	  text-shadow: 0px 0px 0.5px #FE5153;
+	}
+	
+	.red
+	{
+	  text-shadow: 0px 0px 0.5px #FE5153;
+	}
+	
+	.option.invalid.hover, .option.slotTaken.hover
+	{
+	  background-color: #4F3538;
+	 	box-shadow: 0px 0px 0.5px 0.5px #4F3538;
+	}
+
+    
+  .selector
+  {
+    background-image: url("square.png");
+    width: 78px;
+    height: 78px;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    background-size: 75% 75%, 0 0, 0 0;
+	background-repeat: no-repeat;
+	background-position: center center;
+    transition: background-size 0.25s;
+    display: none;
+    cursor: pointer;
+  }
+  
+  .selector.hover
+  {
+   background-size: 100% 100%, 0 0, 0 0;
+  }
+  
+  .selector.chosen
+  {
+	background-size: 75% 75%, 52.5% 52.5%, 75% 75%;
+  }
+  
+  .selector.chosen.hover
+  {
+	background-size: 100% 100%, 52.5% 52.5%, 100% 100%;
+  }
+  
+
+  
+  .selector[for="17"]:before,.selector[for="18"]:before
+  {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		content: '';
+		background-image: url('spotter.png');
+		width: 682px;
+		height: 682px;
+		transform-origin: 0 0;
+		-ms-transform-origin: 0 0;
+		-webkit-transform-origin: 0 0;
+		opacity: 0.25;
+		pointer-events: none;
+	}
+	
+	.selector[option="12a"]:before
+	{
+		-ms-transform: rotate(110deg);
+		-webkit-transform: rotate(110deg);
+		transform: rotate(110deg);
+	}
+	
+	.selector[option="12b"]:before
+	{
+		-ms-transform: rotate(160deg);
+		-webkit-transform: rotate(160deg);
+		transform: rotate(160deg);
+	}
+	
+	.selector[option="12d"]:before
+	{
+		-ms-transform: rotate(90deg);
+		-webkit-transform: rotate(90deg);
+		transform: rotate(90deg);
+	}
+	
+	.selector[option="12e"]:before
+	{
+		-ms-transform: rotate(180deg);
+		-webkit-transform: rotate(180deg);
+		transform: rotate(180deg);
+	}
+	
+	.selector[option="12f"]:before
+	{
+		-ms-transform: rotate(270deg);
+		-webkit-transform: rotate(270deg);
+		transform: rotate(270deg);
+	}
+	
+	.selector[option="13a"]:before
+	{
+		-ms-transform: rotate(280deg);
+		-webkit-transform: rotate(280deg);
+		transform: rotate(280deg);
+	}
+	
+	.selector[option="13b"]:before
+	{
+		-ms-transform: rotate(240deg);
+		-webkit-transform: rotate(240deg);
+		transform: rotate(240deg);
+	}
+	
+	.selector[option="13c"]:before
+	{
+		-ms-transform: rotate(100deg);
+		-webkit-transform: rotate(100deg);
+		transform: rotate(100deg);
+	}
+	
+	.selector[option="13d"]:before
+	{
+		-ms-transform: rotate(10deg);
+		-webkit-transform: rotate(10deg);
+		transform: rotate(10deg);
+	}
+	
+	.selector[for="17"].hover:before,.selector[for="17"].chosen:before,.selector[for="18"].chosen:before,.selector[for="18"].hover:before
+	{
+		opacity: 0.8;
+	}
+	
+	.selector[for="18"]:before
+	{
+		background-image: url('camera.png');
+	}
+	
+
+  
+  .achieves
+  {
+	background-image: url("brass.png");
+	padding: 50px;
+	margin-left: -50;
+	width: 100%;
+	margin-top: 50px;
+	box-shadow: inset -3px -3px 2px rgba(0,0,0,0.4),
+	inset 1px 1px 4px rgba(255,255,255, 0.25);
+	border-radius: 5px;
+	padding-bottom: 25px;
+	margin-bottom: 50px;
+  }
+  
+    #achtitle
+    {
+    	margin: 0px;
+    	width: 100%;
+    	padding: 50px;
+    	margin-left: -50px;
+    	text-shadow: 2px 2px #000000;
+    	font-size: 108px;
+    	line-height: 100px;
+    	text-align: center;
+    	font-family: "gunplayregular";
+    	font-weight: normal;
+    	color: white;
+    }
+	
+	#display
+	{
+		box-shadow: inset -2px -2px 1px rgba(255,255,255,0.2),
+		inset 3px 3px 4px rgba(0,0,0, 0.4);
+		background: rgba(0, 0, 0, 0.2);
+		padding-top: 10px;
+		padding-bottom: 10px;
+		border-radius: 10px;
+		margin-bottom: 50px;
+		height: 350px;
+		text-align: center;
+	}
+
+	#display img
+	{
+		width: 190px;
+		height: 190px;
+		display: inline-block;
+		margin: 0 auto;
+		margin-top: 30px;
+		cursor: pointer;
+	}
+	
+	#maskInfo
+	{
+		padding-left: 30px;
+		padding-right: 30px;
+		margin-top: 30px;
+	}
+	
+	#maskName
+	{
+		float: left;
+		font-size: 48px;
+		width: 200px;
+		text-align: right;
+		padding-right: 20px;
+		height: 50px;
+	}
+	
+	#maskDesc
+	{
+		float: left;
+		text-align: left;
+		width: 496px;
+		padding-left: 20px;
+		border-left: 2px solid white;
+		height: 92px;
+		margin-top: -5px;
+	}
+  
+  .achieve
+  {
+  	box-shadow: inset -2px -2px 1px rgba(255,255,255,0.2),
+	inset 3px 3px 4px rgba(0,0,0, 0.4);
+	background: rgba(0, 0, 0, 0.2);
+	margin-left: 120px;
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-radius: 10px;
+	margin-bottom: 25px;
+	height: 120px;
+	position: relative;
+  }
+  
+  .achieve:before
+  {
+	position: absolute;
+	content: '';
+	width: 100px;
+	height: 100px;
+	background-color: #EAEAEA;
+	left: -140px;
+	box-shadow: inset -1px -1px 2px rgba(0,0,0,0.4),
+	inset 1px 1px 4px rgba(255,255,255, 0.25),
+	3px 3px 5px rgba(0,0,0,0.4);
+	border-radius: 50px;
+	background-repeat: no-repeat;
+	background-position: center center;
+  }
+ 
+  
+  .achieve:hover:before
+  {
+	background-color: #FFE693;
+  }
+  
+  .achieve:active:before
+  {
+	box-shadow: inset 0px 0px 2px rgba(0,0,0,0.4),
+	inset 1px 1px 4px rgba(255,255,255, 0.25),
+	1px 1px 5px rgba(0,0,0,0.4);
+  }
+  
+  .achieve img
+  {
+	float: left;
+	margin-right: 20px;
+	margin-bottom: 20px;
+  }
+  
+  .achieve h2
+  {
+	padding: 0px;
+	margin: 0px;
+	margin-top: -10px;
+	margin-bottom: 5px;
+  }
+    
+    html, body
+    {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+    	font-family: "Trebuchet MS", Helvetica, sans-serif;
+    	color: white;
+    	font-size: 16px;
+    	text-shadow: 1px 1px #000000;
+    	padding-bottom: 50px;
+    	line-height: 24px;
+    }
+	
+	#iewarning
+	{
+		display: none;
+		color: white;
+		font-size: 36px;
+		padding: 30px;
+		line-height: 42px;
+	}
+
+    
+    </style>
+
+  </head>
+  <body style = "background-image: url('conc.png'); background-repeat: repeat">
+	<div id = "iewarning">It appears you're using Internet Explorer. Unfortunately, Internet Explorer has failed to support several CSS3 features that are used to enhance the look of this website. Although the website should work as intended, you will not receive the optimal viewing experience. For a better experience, please use a browser such as Google Chrome or Firefox that has adopted the most modern standards.</div>
+    <div id = "fullscreen">
+      <div id = "fullscreenInner">
+        <img>
+      </div>
+    </div>
+    <div id = "container">
+    	<div id = "main">
+    		<img src = "poster.png" id = "poster">
+    		<h1>The Mission</h1>
+    		<p>
+          Over the years, we've hit some pretty big joints: The Benevolent Bank, The Golden Grin, an Andersonian. But it's time we hit something bigger... something like Fort Knox. The world's largest depository of gold buillion. A place so secret the last time civilians were allowed in was decades ago. Knocking over such a secure base seems impossible... but we're all about doing the impossible. Preparations have been made to gain you entry to the facility, the rest is all up to you.
+    		</p>
+    		
+    		<p>
+    	  	<img class = "photo left" src = "crates.png">
+    		  From what the plans show, the facility is made up of four warehouses. These are our targets. The government isn't playing games, if you want to get in without raising any alarms we'll need to bypass various security systems.<br><br>Each warehouse is likely to have a different security system, perhaps an iris scanner requiring the eyes of the general, a keycard lock, or an electronic security system you can shut off at a security building. If we're lucky, a warehouse or two may be open, but you'll need to be wary of anyone going in or out.<br><br>Of course, if you don't mind making a little noise, we can use the thermal drill. Alex should drop one off as soon as you make your presence known. Four shaped charges can provide you with a faster way in if you happen to have any on hand.
+    		</p>
+    		<p>
+    		  <img class = "photo right" src = "fork.png">
+    		  Once you manage to get inside the warehouses, you should find what we're looking for: pure 24 carat gold. At least, that's the hope. Who knows what we might stumble upon in the government's most secure storage facility. You're likely to find forklifts that can help you transport the gold to where it needs to go.<br><br>Four auxillary buildings sit around the warehouses. You'll want to take note of these as well. The security room houses the camera operator. The offices have computers that may need to be hacked later. The generator room is useful in disabling security measures which will be discussed later. The last auxillary building isn't well detailed in the plans, it appears to require a keycard. It may be an armory or infirmary, or perhaps it's nothing at all.
+    		</p>
+    		<h1 class = "odd">The Loot</h1>
+    		<p>
+    	  	<img class = "photo right" src = "elevator.png">
+    		  The warehouses are just the tip of the iceberg. The Fort Knox facility descends hundreds of levels below the surface, a nearly infinite source of gold accessed with elevators located in each of the warehouses. As long as you stay out of custody, you can stay for as long as you like. All you need to do is activate the elevators and keep everything in check on the surface, my man on the inside will load them full of gold and send them back to the surface. The plans show reinforced gates on some of the floors, so I've supplied you with thermite paste. If my inside man requests some, you'll need to grab it from the van.<br><br>If you're staying sneaky, you'll have to keep on your toes if you want to keep the elevators running. A new shift is prone to start at any time, so expect to have to deal with guards. My inside man can empty and return used body bags if they're tossed in an elevator in case you run out. It's likely that some security mechanisms will activate periodically, so be ready to enter a security code or hack a computer nearby. If anyone calls to the security<br>room, you'll have to deal with that too. It's a lot to keep track of, I know, but the payout is worth it.
+    		</p>
+    		<h1>The Defenses</h1>
+    		<p>
+    		  Of course, such a high security facility is going to have good defenses. I've already planned a few ways for you to get in, but you'll still have to be careful once inside. Several guards will roam the facility, but most won't enter the warehouses. Those that do will be alerted by a running elevator, so be wary. Make sure to also watch out for cameras.<br><br>An electric fence surrounds the facility. The auxillary generator can be found in the generator room, shutting this off will disable the fence but will also disable the elevators until turned back on. You'll need to turn off the fence to retreive the thermite or to secure loot. While the fence is off, cops will be able to scale it, so act fast.
+    		</p>
+    		<h1 class = "odd">Preplanning</h1>
+  		</div>
+  		<div id = "pp">
+  		  <div id = "viewport">
+			<div id = "overlay"></div>
+			<div id = "map">
+				<img src = "map.png">
+				
+				<div class = "selector" for = "5" option = "1" style = "left: 430px; top: 865px; background-image: url('triangle.png'), url('preplan/backed/PrePlanDrill.png'), url('highlight.png');"></div>
+				
+				<div class = "selector" for = "6" option = "2" style = "left: 980px; top: 858px; background-image: url('odd.png'), url('preplan/backed/PrePlanComputerGlitchRoutine.png'), url('highlight.png');"></div>
+				
+				<div class = "selector" for = "7" option = "3" style = "left: 1068px; top: 918px; background-image: url('odd.png'), url('preplan/backed/PrePlanLoot.png'), url('highlight.png');"></div>
+				
+				<div class = "selector" for = "8" option = "4a" style = "left: 1835px; top: 559px; background-image: url('odd.png'), url('preplan/backed/PrePlanKeycard.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "8" option = "4b" style = "left: 888px; top: 1411px; background-image: url('odd.png'), url('preplan/backed/PrePlanKeycard.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "8" option = "4c" style = "left: 853px; top: 125px; background-image: url('odd.png'), url('preplan/backed/PrePlanKeycard.png'), url('highlight.png');"></div>
+				
+				<div class = "selector" for = "9" option = "5" style = "left: 95px; top: 885px; background-image: url('odd.png'), url('preplan/backed/PrePlanManifest.png'), url('highlight.png');"></div>
+				
+				<div class = "selector" for = "10" slot = 1 option = "6a" style = "left: 1520px; top: 1941px; background-image: url('square.png'), url('preplan/backed/PrePlanAmmo.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "11" slot = 1 option = "7a" style = "left: 1520px; top: 1941px; background-image: url('square.png'), url('preplan/backed/PrePlanMed.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "12" slot = 1 option = "8a" style = "left: 1520px; top: 1941px; background-image: url('square.png'), url('preplan/backed/PrePlanBody.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "13" slot = 1 option = "9a" style = "left: 1520px; top: 1941px; background-image: url('square.png'), url('preplan/backed/PrePlanGrenade.png'), url('highlight.png');"></div>
+				
+				<div class = "selector" for = "10" slot = 2 option = "6b" style = "left: 1388px; top: 1672px; background-image: url('square.png'), url('preplan/backed/PrePlanAmmo.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "11" slot = 2 option = "7b" style = "left: 1388px; top: 1672px; background-image: url('square.png'), url('preplan/backed/PrePlanMed.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "12" slot = 2 option = "8b" style = "left: 1388px; top: 1672px; background-image: url('square.png'), url('preplan/backed/PrePlanBody.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "13" slot = 2 option = "9b" style = "left: 1388px; top: 1672px; background-image: url('square.png'), url('preplan/backed/PrePlanGrenade.png'), url('highlight.png');"></div>
+				
+				<div class = "selector" for = "10" slot = 3 option = "6c" style = "left: 1158px; top: 139px; background-image: url('square.png'), url('preplan/backed/PrePlanAmmo.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "11" slot = 3 option = "7c" style = "left: 1158px; top: 139px; background-image: url('square.png'), url('preplan/backed/PrePlanMed.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "12" slot = 3 option = "8c" style = "left: 1158px; top: 139px; background-image: url('square.png'), url('preplan/backed/PrePlanBody.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "13" slot = 3 option = "9c" style = "left: 1158px; top: 139px; background-image: url('square.png'), url('preplan/backed/PrePlanGrenade.png'), url('highlight.png');"></div>
+				
+				<div class = "selector" for = "10" slot = 4 option = "6d" style = "left: 1486px; top: 832px; background-image: url('square.png'), url('preplan/backed/PrePlanAmmo.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "11" slot = 4 option = "7d" style = "left: 1486px; top: 832px; background-image: url('square.png'), url('preplan/backed/PrePlanMed.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "12" slot = 4 option = "8d" style = "left: 1486px; top: 832px; background-image: url('square.png'), url('preplan/backed/PrePlanBody.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "13" slot = 4 option = "9d" style = "left: 1486px; top: 832px; background-image: url('square.png'), url('preplan/backed/PrePlanGrenade.png'), url('highlight.png');"></div>
+				
+				<div class = "selector" for = "10" slot = 5 option = "6e" style = "left: 2935px; top: 555px; background-image: url('square.png'), url('preplan/backed/PrePlanAmmo.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "11" slot = 5 option = "7e" style = "left: 2935px; top: 555px; background-image: url('square.png'), url('preplan/backed/PrePlanMed.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "12" slot = 5 option = "8e" style = "left: 2935px; top: 555px; background-image: url('square.png'), url('preplan/backed/PrePlanBody.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "13" slot = 5 option = "9e" style = "left: 2935px; top: 555px; background-image: url('square.png'), url('preplan/backed/PrePlanGrenade.png'), url('highlight.png');"></div>
+				
+				<div class = "selector" for = "10" slot = 6 option = "6f" style = "left: 3390px; top: 555px; background-image: url('square.png'), url('preplan/backed/PrePlanAmmo.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "11" slot = 6 option = "7f" style = "left: 3390px; top: 555px; background-image: url('square.png'), url('preplan/backed/PrePlanMed.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "12" slot = 6 option = "8f" style = "left: 3390px; top: 555px; background-image: url('square.png'), url('preplan/backed/PrePlanBody.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "13" slot = 6 option = "9f" style = "left: 3390px; top: 555px; background-image: url('square.png'), url('preplan/backed/PrePlanGrenade.png'), url('highlight.png');"></div>
+				
+				<div class = "selector" for = "10" slot = 7 option = "6g" style = "left: 2935px; top: 1218px; background-image: url('square.png'), url('preplan/backed/PrePlanAmmo.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "11" slot = 7 option = "7g" style = "left: 2935px; top: 1218px; background-image: url('square.png'), url('preplan/backed/PrePlanMed.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "12" slot = 7 option = "8g" style = "left: 2935px; top: 1218px; background-image: url('square.png'), url('preplan/backed/PrePlanBody.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "13" slot = 7 option = "9g" style = "left: 2935px; top: 1218px; background-image: url('square.png'), url('preplan/backed/PrePlanGrenade.png'), url('highlight.png');"></div>
+				
+				<div class = "selector" for = "10" slot = 8 option = "6h" style = "left: 3390px; top: 1218px; background-image: url('square.png'), url('preplan/backed/PrePlanAmmo.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "11" slot = 8 option = "7h" style = "left: 3390px; top: 1218px; background-image: url('square.png'), url('preplan/backed/PrePlanMed.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "12" slot = 8 option = "8h" style = "left: 3390px; top: 1218px; background-image: url('square.png'), url('preplan/backed/PrePlanBody.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "13" slot = 8 option = "9h" style = "left: 3390px; top: 1218px; background-image: url('square.png'), url('preplan/backed/PrePlanGrenade.png'), url('highlight.png');"></div>
+				
+				<div class = "selector chosen" for = "1" option = "10a" style = "left: 380px; top: 825px; background-image: url('circle.png'), url('preplan/backed/PrePlanEscape.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "1" option = "10b" style = "left: 1396px; top: 1872px; background-image: url('circle.png'), url('preplan/backed/PrePlanEscape.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "1" option = "10c" style = "left: 2954px; top: 1308px; background-image: url('circle.png'), url('preplan/backed/PrePlanEscape.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "1" option = "10d" style = "left: 1360px; top: 376px; background-image: url('circle.png'), url('preplan/backed/PrePlanEscape.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "1" option = "10e" style = "left: 868px; top: 414px; background-image: url('circle.png'), url('preplan/backed/PrePlanEscape.png'), url('highlight.png');"></div>
+				
+				<div class = "selector" for = "16" option = "11a" style = "left: 288px; top: 295px; background-image: url('odd2.png'), url('preplan/backed/PrePlanCam2.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "16" option = "11b" style = "left: 3536px; top: 1317px; background-image: url('odd2.png'), url('preplan/backed/PrePlanCam2.png'), url('highlight.png');"></div>
+				
+				<div class = "selector" for = "17" option = "12a" angle = 80 style = "left: 512px; top: 815px; background-image: url('odd2.png'), url('preplan/backed/PrePlanSpyCam.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "17" option = "12b" angle = 80 style = "left: 1300px; top: 1644px; background-image: url('odd2.png'), url('preplan/backed/PrePlanSpyCam.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "17" option = "12c" angle = 80 style = "left: 602px; top: 996px; background-image: url('odd2.png'), url('preplan/backed/PrePlanSpyCam.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "17" option = "12d" angle = 80 style = "left: 916px; top: 466px; background-image: url('odd2.png'), url('preplan/backed/PrePlanSpyCam.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "17" option = "12e" angle = 80 style = "left: 1446px; top: 780px; background-image: url('odd2.png'), url('preplan/backed/PrePlanSpyCam.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "17" option = "12f" angle = 80 style = "left: 1132px; top: 1310px; background-image: url('odd2.png'), url('preplan/backed/PrePlanSpyCam.png'), url('highlight.png');"></div>
+				
+				<div class = "selector" for = "18" option = "13a" angle = 80 style = "left: 671px; top: 1615px; background-image: url('odd2.png'), url('preplan/backed/PrePlanCam.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "18" option = "13b" angle = 80 style = "left: 271px; top: 1415px; background-image: url('odd2.png'), url('preplan/backed/PrePlanCam.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "18" option = "13c" angle = 80 style = "left: 1313px; top: 826px; background-image: url('odd2.png'), url('preplan/backed/PrePlanCam.png'), url('highlight.png');"></div>
+				<div class = "selector" for = "18" option = "13d" angle = 80 style = "left: 958px; top: 534px; background-image: url('odd2.png'), url('preplan/backed/PrePlanCam.png'), url('highlight.png');"></div>
+				
+				<div class = "selector" for = "19" option = "14" style = "left: 1944px; top: 825px; background-image: url('odd.png'), url('preplan/backed/PrePlanHack.png'), url('highlight.png');"></div>
+			
+				<div class = "selector" for = "20" option = "15" style = "left: 1944px; top: 945px; background-image: url('odd.png'), url('preplan/backed/PrePlanHack.png'), url('highlight.png');"></div>
+			</div>
+  		  </div>
+  		  <span id = "favors">FAVORS LEFT: 12/12</span>
+    		<div id = "preplanning">
+    		  <div id = "preplanningMain">
+				<div id = "mainMenu">
+				  
+				  <div class = "type">
+  					<div class = "typeHeader">MISSION CRITICAL</div>
+  					<div class = "category" id = "1" style = "background-image: url('preplan/PrePlanEscape.png')"
+  					desc = "Alternative ways of getting in and out.<br><br>Escape plans need a majority vote. In a deadlock, the host has casting vote.">Escape Plan</div>
+				  </div>
+				  
+				  <div class = "type">
+  					<div class = "typeHeader">MISSION BENEFICIAL</div>
+  					  					  
+  			    <div class = "category" id = "4" style = "background-image: url('preplan/PrePlanMed.png')"
+  					desc = "An insider drops off equipment and items on location before the heist starts.">Dead Drop</div>
+					
+					<div class = "category" id = "14" style = "background-image: url('preplan/PrePlanSpyCam.png')"
+  					desc = "Access and disrupt surveillance systems.">Surveillance</div>
+					
+					<div class = "category" id = "15" style = "background-image: url('preplan/PrePlanHack.png')"
+  					desc = "Disrupt systems, cameras, alarms and communications.">Hacking</div>
+  	 
+  					<div class = "category" id = "3" style = "background-image: url('preplan/PrePlanKeycard.png')"
+  					desc = "Get help from the inside.">Insider Help</div>
+
+  					  					<div class = "category" id = "2" style = "background-image: url('preplan/PrePlanDrill.png')"
+  					desc = "Additional mission equipment.">Additional Mission Equipment</div>
+					
+  				  </div>
+  		    </div>
+  		    
+  			  <div class = "children" for = "1">
+  			    <div class = "back1" style = "" desc = "Go back"><< Back</div>
+  				  <div class = "typeHeader">ESCAPE PLAN</div>
+  			  	<div class = "option escape chosen" option = "10a" cost = "0" style = "background-image: url('preplan/PrePlanEscape.png')"
+  				  desc = "Ride into the facility in the back of a truck. Secure loot and escape in the van outside.<br><br>Costs 0 favors.">Basic Escape: Truck</div>
+  					<div class = "option escape" option = "10b" cost = 4 style = "background-image: url('preplan/PrePlanEscape.png')"
+  				  desc = "An insider digs a tunnel from outside, allowing access into one of the warehouses and bypassing the fence. Secure loot and escape in the van parked next to the tunnel's entrance.<br><br>Costs 4 favors.">Tunnel</div>
+  				  <div class = "option escape" option = "10c" cost = 6 style = "background-image: url('preplan/PrePlanEscape.png')"
+  				  desc = "Our ace pilot will be at the ready to land on the designated warehouse once you activate a flare. The pilot can pick up loot or airlift you out. Will alert police.<br><br>Costs 6 favors.">Airlift</div>
+  				  <div class = "option escape" option = "10d" cost = 8 style = "background-image: url('preplan/PrePlanEscape.png')"
+  				  desc = "Our driver will borrow a dump truck from a nearby construction site and ram it into a warehouse, with you in the truckbed. Stash your loot and escape in the truck. This is as loud as it gets.<br><br>Costs 8 favors.">Dump Truck</div>
+  				  <div class = "option escape" option = "10e" cost = 10 style = "background-image: url('preplan/PrePlanEscape.png')"
+  				  desc = "An escape tunnel is bored into a lower level of the facility, allowing you to escape by taking an elevator. The inside man will run the loot for you but will take a little longer.<br><br>Costs 10 favors.">Elevator Trick</div>
+  			  </div>
+  			  
+  			  <div class = "children" for = "2">
+  			    <div class = "back1" style = "" desc = "Go back"><< Back</div>
+  				  <div class = "typeHeader">ADDITIONAL MISSION EQUIPMENT</div>
+  					<div class = "item" id = "5" style = "background-image: url('preplan/PrePlanDrill.png')"
+  				  desc = "You'll arrive with an additional thermal drill to help open the warehouses faster.<br><br>Costs 2 favors.">Additional Thermal Drill</div>
+  			  </div>
+  			  
+  			  <div class = "children" for = "5">
+  			    <div class = "back2" style = "" desc = "Go back" target = "2"><< Back</div>
+  				  <div class = "typeHeader">ADDITIONAL THERMAL DRILL</div>
+  					<div class = "option" option = "1" cost = 2 style = "background-image: url('preplan/PrePlanDrill.png')"
+  				  desc = "You'll arrive with an additional thermal drill to help open the warehouses faster.<br><br>Costs 2 favors.">Inside Truck</div>
+  			  </div>
+  			  
+  			  <div class = "children" for = "3">
+  			    <div class = "back1" style = "" desc = "Go back"><< Back</div>
+  				  <div class = "typeHeader">INSIDER HELP</div>
+  					<div class = "item" id = "6" style = "background-image: url('preplan/PrePlanComputerGlitchRoutine.png')"
+  				  desc = "An additional inside man will hasten the elevator loading process.<br><br>Costs 2 favors.">Additional Loader</div>
+  			  	<div class = "item" id = "7" style = "background-image: url('preplan/PrePlanLoot.png')"
+  				  desc = "Ammo and meds will be smuggled to the lower levels of the facility in the week prior to the hit. The inside man will send up these supplies over time.<br><br>Costs 6 favors.">Supply Line</div>
+  				  <div class = "item" id = "8" style = "background-image: url('preplan/PrePlanKeycard.png')"
+  				  desc = "An inside man will place a keycard.<br><br>Costs 2 favors.">Keycard</div>
+  				  <div class = "item" id = "9" style = "background-image: url('preplan/PrePlanManifest.png')"
+  				  desc = "More detailed blueprints of the facility will let us pinpoint the location of the security office and elevators.<br><br>Costs 2 favors.">Blueprints</div>
+  			  </div>
+  			  
+  			  <div class = "children" for = "6">
+  			    <div class = "back2" style = "" desc = "Go back" target = "3"><< Back</div>
+  				  <div class = "typeHeader">ADDITIONAL LOADER</div>
+  					<div class = "option" option = "2" cost = 2 style = "background-image: url('preplan/PrePlanComputerGlitchRoutine.png')"
+  				  desc = "An additional inside man will hasten the elevator loading process.<br><br>Costs 2 favors.">Facility Lower Levels</div>
+  			  </div>
+  			  
+  			  <div class = "children" for = "7">
+  			    <div class = "back2" style = "" desc = "Go back" target = "3"><< Back</div>
+  				  <div class = "typeHeader">SUPPLY LINE</div>
+  					<div class = "option" option = "3" cost = 6 style = "background-image: url('preplan/PrePlanLoot.png')"
+  				  desc = "Ammo and meds will be smuggled to the lower levels of the facility in the week prior to the hit. The inside man will send up these supplies over time.<br><br>Costs 6 favors.">Smuggle Into Lower Levels</div>
+  			  </div>
+  			  
+  			  <div class = "children" for = "8">
+  			    <div class = "back2" style = "" desc = "Go back" target = "3"><< Back</div>
+  				  <div class = "typeHeader">KEYCARD</div>
+  				  <div class = "typeHeader">YARD</div>
+					<div class = "option" option = "4a" cost = 2 style = "background-image: url('preplan/PrePlanKeycard.png')"
+  				  desc = "An inside man will place a keycard.<br><br>Costs 2 favors.">Northwest Alleyway</div>
+				  <div class = "option" option = "4b" cost = 2 style = "background-image: url('preplan/PrePlanKeycard.png')"
+  				  desc = "An inside man will place a keycard.<br><br>Costs 2 favors.">Shipping Crates</div>
+				  <div class = "option" option = "4c" cost = 2 style = "background-image: url('preplan/PrePlanKeycard.png')"
+  				  desc = "An inside man will place a keycard.<br><br>Costs 2 favors.">Smoking Area</div>
+  			  </div>
+  			  
+			<div class = "children" for = "9">
+  			    <div class = "back2" style = "" desc = "Go back" target = "3"><< Back</div>
+  				  <div class = "typeHeader">BLUEPRINTS</div>
+	  				<div class = "option" option = "5" cost = 2 style = "background-image: url('preplan/PrePlanManifest.png')"
+  				  desc = "More detailed blueprints of the facility will let us pinpoint the location of the security office and elevators.<br><br>Costs 2 favors.">Added to Inventory</div>
+  			  </div>
+			  
+			  <div class = "children" for = "14">
+  			    <div class = "back1" style = "" desc = "Go back"><< Back</div>
+  				  <div class = "typeHeader">SURVEILLANCE</div>
+  					<div class = "item" id = "16" style = "background-image: url('preplan/PrePlanCam2.png')"
+  				  desc = "Access all cameras from a device jacked into the network by an associate.<br><br>Costs 2 favors.">Camera Access</div>
+  			  	<div class = "item" id = "17" style = "background-image: url('preplan/PrePlanSpycam.png')"
+  				  desc = "Plant a tiny spycam that tags enemies. Just like the spotter, only more high tech.<br><br>Costs 2 favors.">Spycam</div>
+  				  <div class = "item" id = "18" style = "background-image: url('preplan/PrePlanCam.png')"
+  				  desc = "An associate installs a hidden camera at the selected location. Cameras run on a separate loop and will not spot you.<br><br>Note: Access the camera feed through the security room, or buy the camera access asset.<br><br>Costs 1 favors.">Additional Cameras</div>
+  			  </div>
+			  
+			  <div class = "children" for = "16">
+  			    <div class = "back2" style = "" desc = "Go back" target = "14"><< Back</div>
+  				  <div class = "typeHeader">CAMERA ACCESS</div>
+  				  <div class = "typeHeader">YARD</div>
+					<div class = "option" option = "11a" cost = 2 style = "background-image: url('preplan/PrePlanCam2.png')"
+  				  desc = "Access all cameras from a device jacked into the network by an associate.<br><br>Costs 2 favors.">Northwestern Building Exterior</div>
+				  <div class = "typeHeader">ROOF</div>
+				  <div class = "option" option = "11b" cost = 2 style = "background-image: url('preplan/PrePlanCam2.png')"
+  				  desc = "Access all cameras from a device jacked into the network by an associate.<br><br>Costs 2 favors.">Southeast Warehouse</div>
+  			  </div>
+			  
+			  <div class = "children" for = "17">
+  			    <div class = "back2" style = "" desc = "Go back" target = "14"><< Back</div>
+  				  <div class = "typeHeader">SPYCAM</div>
+  				  <div class = "typeHeader">YARD</div>
+					<div class = "option" option = "12a" cost = 2 style = "background-image: url('preplan/PrePlanSpyCam.png')"
+  				  desc = "Plant a tiny spycam that tags enemies. Just like the spotter, only more high tech.<br><br>Costs 2 favors.">Security Gate</div>
+					<div class = "option" option = "12b" cost = 2 style = "background-image: url('preplan/PrePlanSpyCam.png')"
+  				  desc = "Plant a tiny spycam that tags enemies. Just like the spotter, only more high tech.<br><br>Costs 2 favors.">Southern Grove</div>
+				  <div class = "typeHeader">WAREHOUSES</div>
+					<div class = "option" option = "12d" cost = 2 style = "background-image: url('preplan/PrePlanSpyCam.png')"
+  				  desc = "Plant a tiny spycam that tags enemies. Just like the spotter, only more high tech.<br><br>Costs 2 favors.">Northwest Warehouse</div>
+					<div class = "option" option = "12e" cost = 2 style = "background-image: url('preplan/PrePlanSpyCam.png')"
+  				  desc = "Plant a tiny spycam that tags enemies. Just like the spotter, only more high tech.<br><br>Costs 2 favors.">Northeast Warehouse</div>
+					<div class = "option" option = "12c" cost = 2 style = "background-image: url('preplan/PrePlanSpyCam.png')"
+  				  desc = "Plant a tiny spycam that tags enemies. Just like the spotter, only more high tech.<br><br>Costs 2 favors.">Southwest Warehouse</div>
+					<div class = "option" option = "12f" cost = 2 style = "background-image: url('preplan/PrePlanSpyCam.png')"
+  				  desc = "Plant a tiny spycam that tags enemies. Just like the spotter, only more high tech.<br><br>Costs 2 favors.">Southeast Warehouse</div>
+  			  </div>
+			  
+			  <div class = "children" for = "18">
+  			    <div class = "back2" style = "" desc = "Go back" target = "14"><< Back</div>
+  				  <div class = "typeHeader">SPYCAM</div>
+  				  <div class = "typeHeader">YARD</div>
+					<div class = "option" option = "13a" cost = 2 style = "background-image: url('preplan/PrePlanCam.png')"
+  				  desc = "An associate installs a hidden camera at the selected location. Cameras run on a separate loop and will not spot you.<br><br>Note: Access the camera feed through the security room, or buy the camera access asset.<br><br>Costs 1 favors.">Southern Cargo Road</div>
+					<div class = "option" option = "13b" cost = 2 style = "background-image: url('preplan/PrePlanCam.png')"
+  				  desc = "An associate installs a hidden camera at the selected location. Cameras run on a separate loop and will not spot you.<br><br>Note: Access the camera feed through the security room, or buy the camera access asset.<br><br>Costs 1 favors.">Western Cargo Road</div>
+					<div class = "option" option = "13c" cost = 2 style = "background-image: url('preplan/PrePlanCam.png')"
+  				  desc = "An associate installs a hidden camera at the selected location. Cameras run on a separate loop and will not spot you.<br><br>Note: Access the camera feed through the security room, or buy the camera access asset.<br><br>Costs 1 favors.">Alley East-West</div>
+					<div class = "option" option = "13d" cost = 2 style = "background-image: url('preplan/PrePlanCam.png')"
+  				  desc = "An associate installs a hidden camera at the selected location. Cameras run on a separate loop and will not spot you.<br><br>Note: Access the camera feed through the security room, or buy the camera access asset.<br><br>Costs 1 favors.">Alley North-South</div>
+  			  </div>
+			  
+			  <div class = "children" for = "15">
+  			    <div class = "back1" style = "" desc = "Go back"><< Back</div>
+  				  <div class = "typeHeader">HACKING</div>
+  					<div class = "item" id = "19" style = "background-image: url('preplan/PrePlanHack.png')"
+  				  desc = "Disrupt the outgoing silent alarm. Delays the armed response first arrival by 30 seconds.<br><br>Costs 2 favors.">Silent Alarm 30S. Delay</div>
+  			  	<div class = "item" id = "20" style = "background-image: url('preplan/PrePlanHack.png')"
+  				  desc = "Reroute the facility's phone lines, allowing Bain to answer incoming calls during elevator operation.<br><br>Costs 2 favors.">Phone Line Reroute</div>
+  			  </div>
+			  
+			  <div class = "children" for = "19">
+  			    <div class = "back2" style = "" desc = "Go back" target = "15"><< Back</div>
+  				  <div class = "typeHeader">SILIENT ARM 30S. DELAY</div>
+	  				<div class = "option" option = "14" cost = 2 style = "background-image: url('preplan/PrePlanHack.png')"
+  				  desc = "Disrupt the outgoing silent alarm. Delays the armed response first arrival by 30 seconds.<br><br>Costs 2 favors.">Underground Conduit</div>
+  			  </div>
+			  
+			  <div class = "children" for = "20">
+  			    <div class = "back2" style = "" desc = "Go back" target = "15"><< Back</div>
+  				  <div class = "typeHeader">PHONE LINE REROUTE</div>
+	  				<div class = "option" option = "15" cost = 2 style = "background-image: url('preplan/PrePlanHack.png')"
+  				  desc = "Reroute the facility's phone lines, allowing Bain to answer incoming calls during elevator operation.<br><br>Costs 2 favors.">Underground Conduit</div>
+  			  </div>
+  			  
+  			  <div class = "children" for = "4">
+  			    <div class = "back1" style = "" desc = "Go back"><< Back</div>
+  				  <div class = "typeHeader">DEAD DROPS</div>
+  					<div class = "item" id = "10" style = "background-image: url('preplan/PrePlanAmmo.png')"
+  				  desc = "An insider will place an ammo kit in the designated location.<br><br>Costs 2 favors.">Ammo Kit</div>
+  				  <div class = "item" id = "11" style = "background-image: url('preplan/PrePlanMed.png')"
+  				  desc = "An insider will place a doctor bag in the designated location.<br><br>Costs 2 favors.">Doctor Bag</div>
+  				  <div class = "item" id = "12" style = "background-image: url('preplan/PrePlanBody.png')"
+  				  desc = "An insider will place body bags in the designated location.<br><br>Costs 2 favors.">Body Bags</div>
+  				  <div class = "item" id = "13" style = "background-image: url('preplan/PrePlanGrenade.png')"
+  				  desc = "An insider will place a grenade case in the designated location.<br><br>Costs 2 favors.">Grenade Case</div>
+  			  </div>
+  			  
+  			  <div class = "children" for = "10">
+  			    <div class = "back2" style = "" desc = "Go back" target = "4"><< Back</div>
+  				  <div class = "typeHeader">AMMO KIT</div>
+  				  <div class = "typeHeader">OUTSIDE PERIMETER</div>
+	  				<div class = "option" option = "6a" cost = 2 style = "background-image: url('preplan/PrePlanAmmo.png')"
+  				  desc = "An insider will place an ammo kit in the designated location.<br><br>Costs 2 favors.">Van</div>
+  				  <div class = "typeHeader">YARD</div>
+  				  <div class = "option" option = "6b" cost = 2 style = "background-image: url('preplan/PrePlanAmmo.png')"
+  				  desc = "An insider will place an ammo kit in the designated location.<br><br>Costs 2 favors.">Southern Grove</div>
+				  <div class = "option" option = "6c" cost = 2 style = "background-image: url('preplan/PrePlanAmmo.png')"
+  				  desc = "An insider will place an ammo kit in the designated location.<br><br>Costs 2 favors.">Northern Grove</div>
+				  <div class = "option" option = "6d" cost = 2 style = "background-image: url('preplan/PrePlanAmmo.png')"
+  				  desc = "An insider will place an ammo kit in the designated location.<br><br>Costs 2 favors.">Alleyway Dumpster</div>
+				  <div class = "typeHeader">ROOF</div>
+				  <div class = "option" option = "6e" cost = 2 style = "background-image: url('preplan/PrePlanAmmo.png')"
+  				  desc = "An insider will place an ammo kit in the designated location.<br><br>Costs 2 favors.">Northwest Warehouse</div>
+				  <div class = "option" option = "6f" cost = 2 style = "background-image: url('preplan/PrePlanAmmo.png')"
+  				  desc = "An insider will place an ammo kit in the designated location.<br><br>Costs 2 favors.">Northeast Warehouse</div>
+				  <div class = "option" option = "6g" cost = 2 style = "background-image: url('preplan/PrePlanAmmo.png')"
+  				  desc = "An insider will place an ammo kit in the designated location.<br><br>Costs 2 favors.">Southwest Warehouse</div>
+				  <div class = "option" option = "6h" cost = 2 style = "background-image: url('preplan/PrePlanAmmo.png')"
+  				  desc = "An insider will place an ammo kit in the designated location.<br><br>Costs 2 favors.">Southeast Warehouse</div>
+  			  </div>
+  			  
+  			  <div class = "children" for = "11">
+  			    <div class = "back2" style = "" desc = "Go back" target = "4"><< Back</div>
+  				  <div class = "typeHeader">DOCTOR BAG</div>
+  				  <div class = "typeHeader">OUTSIDE PERIMETER</div>
+	  				<div class = "option" option = "7a" cost = 2 style = "background-image: url('preplan/PrePlanMed.png')"
+  				  desc = "An insider will place a doctor bag in the designated location.<br><br>Costs 2 favors.">Van</div>
+  				  <div class = "typeHeader">YARD</div>
+  				  <div class = "option" option = "7b" cost = 2 style = "background-image: url('preplan/PrePlanMed.png')"
+  				  desc = "An insider will place a doctor bag in the designated location.<br><br>Costs 2 favors.">Southern Grove</div>
+				  <div class = "option" option = "7c" cost = 2 style = "background-image: url('preplan/PrePlanMed.png')"
+  				  desc = "An insider will place a doctor bag in the designated location.<br><br>Costs 2 favors.">Northern Grove</div>
+				  <div class = "option" option = "7d" cost = 2 style = "background-image: url('preplan/PrePlanMed.png')"
+  				  desc = "An insider will place a doctor bag in the designated location.<br><br>Costs 2 favors.">Alleyway Dumpster</div>
+				  <div class = "typeHeader">ROOF</div>
+				  <div class = "option" option = "7e" cost = 2 style = "background-image: url('preplan/PrePlanMed.png')"
+  				  desc = "An insider will place a doctor bag in the designated location.<br><br>Costs 2 favors.">Northwest Warehouse</div>
+				  <div class = "option" option = "7f" cost = 2 style = "background-image: url('preplan/PrePlanMed.png')"
+  				  desc = "An insider will place a doctor bag in the designated location.<br><br>Costs 2 favors.">Northeast Warehouse</div>
+				  <div class = "option" option = "7g" cost = 2 style = "background-image: url('preplan/PrePlanMed.png')"
+  				  desc = "An insider will place a doctor bag in the designated location.<br><br>Costs 2 favors.">Southwest Warehouse</div>
+				  <div class = "option" option = "7h" cost = 2 style = "background-image: url('preplan/PrePlanMed.png')"
+  				  desc = "An insider will place a doctor bag in the designated location.<br><br>Costs 2 favors.">Southeast Warehouse</div>
+  			  </div>
+  			  
+  			  <div class = "children" for = "12">
+  			    <div class = "back2" style = "" desc = "Go back" target = "4"><< Back</div>
+  				  <div class = "typeHeader">BODY BAGS</div>
+  				  <div class = "typeHeader">OUTSIDE PERIMETER</div>
+	  				<div class = "option" option = "8a" cost = 2 style = "background-image: url('preplan/PrePlanBody.png')"
+  				  desc = "An insider will place body bags in the designated location.<br><br>Costs 2 favors.">Van</div>
+  				  <div class = "typeHeader">YARD</div>
+  				  <div class = "option" option = "8b" cost = 2 style = "background-image: url('preplan/PrePlanBody.png')"
+  				  desc = "An insider will place body bags in the designated location.<br><br>Costs 2 favors.">Southern Grove</div>
+				  <div class = "option" option = "8c" cost = 2 style = "background-image: url('preplan/PrePlanBody.png')"
+  				  desc = "An insider will place body bags in the designated location.<br><br>Costs 2 favors.">Northern Grove</div>
+				  <div class = "option" option = "8d" cost = 2 style = "background-image: url('preplan/PrePlanBody.png')"
+  				  desc = "An insider will place body bags in the designated location.<br><br>Costs 2 favors.">Alleyway Dumpster</div>
+				  <div class = "typeHeader">ROOF</div>
+				  <div class = "option" option = "8e" cost = 2 style = "background-image: url('preplan/PrePlanBody.png')"
+  				  desc = "An insider will place body bags in the designated location.<br><br>Costs 2 favors.">Northwest Warehouse</div>
+				  <div class = "option" option = "8f" cost = 2 style = "background-image: url('preplan/PrePlanBody.png')"
+  				  desc = "An insider will place body bags in the designated location.<br><br>Costs 2 favors.">Northeast Warehouse</div>
+				  <div class = "option" option = "8g" cost = 2 style = "background-image: url('preplan/PrePlanBody.png')"
+  				  desc = "An insider will place body bags in the designated location.<br><br>Costs 2 favors.">Southwest Warehouse</div>
+				  <div class = "option" option = "8h" cost = 2 style = "background-image: url('preplan/PrePlanBody.png')"
+  				  desc = "An insider will place body bags in the designated location.<br><br>Costs 2 favors.">Southeast Warehouse</div>
+  			  </div>
+  			  
+  			  <div class = "children" for = "13">
+  			    <div class = "back2" style = "" desc = "Go back" target = "4"><< Back</div>
+  				  <div class = "typeHeader">GRENADE CASE</div>
+  				  <div class = "typeHeader">OUTSIDE PERIMETER</div>
+	  				<div class = "option" option = "9a" cost = 2 style = "background-image: url('preplan/PrePlanGrenade.png')"
+  				  desc = "An insider will place a grenade case in the designated location.<br><br>Costs 2 favors.">Van</div>
+  				  <div class = "typeHeader">YARD</div>
+  				  <div class = "option" option = "9b" cost = 2 style = "background-image: url('preplan/PrePlanGrenade.png')"
+  				  desc = "An insider will place a grenade case in the designated location.<br><br>Costs 2 favors.">Southern Grove</div>
+				  <div class = "option" option = "9c" cost = 2 style = "background-image: url('preplan/PrePlanGrenade.png')"
+  				  desc = "An insider will place a grenade case in the designated location.<br><br>Costs 2 favors.">Northern Grove</div>
+				  <div class = "option" option = "9d" cost = 2 style = "background-image: url('preplan/PrePlanGrenade.png')"
+  				  desc = "An insider will place a grenade case in the designated location.<br><br>Costs 2 favors.">Alleyway Dumpster</div>
+				  <div class = "typeHeader">ROOF</div>
+				  <div class = "option" option = "9e" cost = 2 style = "background-image: url('preplan/PrePlanGrenade.png')"
+  				  desc = "An insider will place a grenade case in the designated location.<br><br>Costs 2 favors.">Northwest Warehouse</div>
+				  <div class = "option" option = "9f" cost = 2 style = "background-image: url('preplan/PrePlanGrenade.png')"
+  				  desc = "An insider will place a grenade case in the designated location.<br><br>Costs 2 favors.">Northeast Warehouse</div>
+				  <div class = "option" option = "9g" cost = 2 style = "background-image: url('preplan/PrePlanGrenade.png')"
+  				  desc = "An insider will place a grenade case in the designated location.<br><br>Costs 2 favors.">Southwest Warehouse</div>
+				  <div class = "option" option = "9h" cost = 2 style = "background-image: url('preplan/PrePlanGrenade.png')"
+  				  desc = "An insider will place a grenade case in the designated location.<br><br>Costs 2 favors.">Southeast Warehouse</div>
+  			  </div>
+  			  
+  			  
+  		  </div>
+      		<div id = "preplanningDesc">
+      		  <span id = "title"></span>
+      		  <span id = "desc"></span>
+			</div>
+    		</div>
+		</div>
+		<div id = "main2">
+			<div class = "achieves">
+				<h2 id = "achtitle">Masks and Achievements</h1>
+					<div id = "display">
+						<img src = "zeus.png" name = "Zeus" desc = "A heist like this is a feat worthy of the Gods. Zeus, the leader of the Greek Gods and ruler of Mount Olympus was infamous for sleeping around and hurling lightning bolts at his enemies. He also really liked gold.">
+						<img src = "athena.png" name = "Athena" desc = "Athena, the Greek Goddess of wisdom and war, was a staunch advocate for careful planning. Something tells me she and the Dentist would make good friends.">
+						<img src = "poseidon.png" name = "Poseidon" desc = "Poseidon is the Greek God of the sea and of earthquakes and storms. The brother of Zeus, he often would partake in foolish ventures not unlike ramming a dump truck into a secure facility full of gold.">
+						<img src = "pan.png" name = "Pan" desc = "Pan is the half-human, half-goat Greek God of the wild and of hunting. The word 'Panic', a feeling that is far too common for heisters, derives from Pan's name and from his panic-inducing voice.">
+						<br>
+						<div id = "maskInfo">
+							<div id = "maskName">Zeus</div>
+							<div id = "maskDesc">A heist like this is a feat worthy of the Gods. Zeus, the leader of the Greek Gods and ruler of Mount Olympus was infamous for sleeping around and hurling lightning bolts at his enemies. He also really liked gold.</div>
+						</div>
+					</div>
+				<div class = "achieve">
+					<p>
+						<img src = "achievedw.png">
+						<h2>DOING THE IMPOSSIBLE</h2>
+						Complete the Fort Knox heist on the Death Wish difficulty.
+					</p>
+				</div>
+				<div class = "achieve">
+					<p>
+						<img src = "achieveplan.png">
+						<h2>WHAT PLAN?</h2>
+						Complete the Fort Knox heist on the OVERKILL difficulty or above using no favors in Preplanning. Unlocks the "Zeus" mask.
+					</p>
+				</div>
+				<div class = "achieve">
+					<p>
+						<img src = "achievestealth.png">
+						<h2>UNACCOUNTED LOSSES</h2>
+						Complete the Fort Knox heist without having the alarm go off at any point. Unlocks the "Athena" mask.
+					</p>
+				</div>
+				<div class = "achieve">
+					<p>
+						<img src = "achieveDumpTruck.png">
+						<h2>UNDER CONSTRUCTION</h2>
+						Complete the Fort Knox heist in under 5 minutes using the Dump Truck Preplanning option and securing loot from all four warehouses. Unlocks the "Poseidon" mask.
+					</p>
+				</div>
+				<div class = "achieve">
+					<p>
+						<img src = "achievebb.png">
+						<h2>MESSY BUSINESS</h2>
+						Secure at least 20 bags of gold from elevators in the Fort Knox heist in stealth without having Bain's inside man empty any body bags. Unlocks the "Pan" mask.
+					</p>
+				</div>
+			</div>
+		</div>
+		<script>
+		
+				$("#display img").hover(function(){
+				var name = $(this).attr("name");
+				var url = name + ".png";
+				var desc = $(this).attr("desc");
+				$("#maskName").text(name);
+				$("#maskDesc").text(desc);
+			  });
+			  
+			$(".selector.chosen").show();
+			$(".selector").each(function() {
+				var item = $(this).attr("for");
+				var name = $(".children[for=" + item + "] .typeHeader").first().text();				
+				
+				if ($(this).attr("for") == 1)
+				{
+					var option = $(this).attr("option");
+					name =  $(".option[option=" + option + "]").text().toUpperCase();
+				}
+			
+				$(this).attr("tooltip", name);
+
+			});
+			var favors = 12;
+		  
+			$(".photo, #display img").click(function(){
+				var url = $(this).attr("src");
+				url = url.substr(0, url.lastIndexOf("."));
+				url = url + "F.png";
+				$("#fullscreen img").attr("src", url);
+				$("#fullscreen").show();
+			});
+		  
+			$(".category,.item").click(function(){
+				var id = $(this).attr("id");
+				$(".children").hide();
+				$(".children[for=" + id + "]").show();
+				$(".selector[for=" + id + "]").each(function() {
+					var slot = $(this).attr("slot");
+					if (slot > 0)
+					{
+						if ($(".selector[slot=" + slot + "]:visible").length)
+						{
+							$(".option[option=" + $(this).attr("option") + "]").addClass("slotTaken");
+						}
+						else
+						{
+							$(this).show();
+						}
+					}
+					else
+					{
+						$(this).show();
+					}
+				});
+				$("#mainMenu").hide();
+			});
+	  
+	  $(".back1").click(function(){
+		$(".children").hide();
+		$("#mainMenu").show();
+		$(".selector:not(.chosen)").hide();
+	  });
+	  
+	  $(".back2").click(function(){
+		$(".children").hide();
+		var id = $(this).attr("target");
+		$(".children[for=" + id + "]").show();
+		$(".selector:not(.chosen)").hide();
+	  });
+	  
+	  $(".option,.category,.back1,.back2,.item").hover(function(){
+		buttonHover($(this));
+	  });
+	  
+	  function buttonHover(item)
+	  {
+		var selector = getSelector(item);
+		var desc = item.attr("desc");
+		if (item.hasClass("option") && !item.hasClass("chosen") && getCost(item) > favors)
+		{
+			desc += "<br><span class = 'red'>NOT ENOUGH FAVORS.</span>";
+		}
+		if (item.hasClass("slotTaken"))
+		{
+			desc += "<br><span class = 'red'>SPOT TAKEN.</span>";
+		}
+		var css = item.attr("style");
+			  $(".option,.category,.back1,.back2,.item,.selector").removeClass("hover");
+			  item.addClass("hover");
+			  selector.addClass("hover");
+			  if (selector.attr("slot"))
+			  {
+				$(".selector[slot=" + selector.attr("slot") + "]").addClass("hover");
+			  }
+		$("#preplanningDesc #desc").html(desc);
+		$("#preplanningDesc #title").html(item.text());
+		$("#preplanningDesc").attr("style", css);
+	  }
+	  
+	  $(".selector").hover(function(){
+		var option = $(this).attr("option");
+		var button = $(".option[option=" + option + "]");
+		if (button.is(":visible"))
+		{
+			buttonHover(button);
+		}
+	  });
+	  
+	  $("#fullscreen").click(function(){
+		$(this).hide();
+	  });
+	  
+	  $(".option").click(function(){
+		optionClick($(this));
+	  });
+	  
+	  $(".selector").click(function(){
+		var option = $(this).attr("option");
+		var button = $(".option[option=" + option + "]");
+		if (button.is(":visible"))
+		{
+			optionClick(button);
+		}
+		else
+		{
+			var id = $(this).attr("for");
+			$(".children").hide();
+			$(".selector:not(.chosen)").hide();
+			$(".children[for=" + id + "]").show();
+			$(".selector[for=" + id + "]").show();
+			$("#mainMenu").hide();
+		}
+	  });
+		  
+		  
+		var $section = $('#focal');
+		var $panzoom = $("#viewport #map").panzoom({
+			minScale: 0.4,
+			maxScale: 1,
+		});
+				
+		$panzoom.parent().on('mousewheel.focal', function( e ) {
+			e.preventDefault();
+			var delta = e.delta || e.originalEvent.wheelDelta;
+			var zoomOut = delta ? delta < 0 : e.originalEvent.deltaY > 0;
+			$panzoom.panzoom('zoom', zoomOut, {
+				  increment: 0.1,
+				  animate: false,
+				  focal: e
+			});
+		});
+		$panzoom.on('panzoomzoom', function( e, panzoom ) {
+			var zoom = panzoom.getMatrix()[0];
+			$(".selector").css("width", 78 / zoom);
+			$(".selector").css("height", 78 / zoom);
+		});
+		
+	  
+	function optionClick(item)
+	{
+
+					
+		$panzoom.panzoom("zoom", 1,
+		{
+			animate: true,
+		});
+		
+		var cost = getCost(item);
+		var selector = getSelector(item);
+		var left = parseInt(selector.css("left"), 10);
+		var top = parseInt(selector.css("top"), 10);
+		var zoom = $panzoom.panzoom("getMatrix")[0];
+		var wid = $("#viewport").width() / 2;
+		var hei = $("#viewport").height() / 2;
+		
+		$panzoom.panzoom("pan", -zoom * left + wid, -zoom * top + hei,
+		{
+			animate: true,
+		});
+
+		var slot = item.attr("slot");
+		
+		if (item.hasClass("chosen") && !item.hasClass("escape"))
+		{
+			item.removeClass("chosen");
+			selector.removeClass("chosen");
+			favors += cost;
+			$("#favors").text("FAVORS LEFT: " + favors + "/12");
+		}
+		else
+		{
+			if (cost <= favors && !item.hasClass("slotTaken"))
+			{
+				favors -= cost;
+				if (item.hasClass("escape"))
+				{
+					var chosenEscape = $(".chosen.escape");
+					chosenEscape.removeClass("chosen")
+					getSelector(chosenEscape).removeClass("chosen");
+				}
+				$("#favors").text("FAVORS LEFT: " + favors + "/12");
+				item.addClass("chosen");
+				
+				selector.addClass("chosen");
+			}
+		}
+		$(".option:not(.chosen)").filter(function() {
+		  return getCost(item) > favors;
+		}).addClass("invalid");
+		$(".option").filter(function() {
+		  return getCost(item) <= favors;
+		}).removeClass("invalid");
+	}
+	  
+		  function getCost(item)
+		  {
+			  if (item.hasClass("escape"))
+		{
+		  var chosenEscape = $(".chosen.escape");
+		  otherCost = -(-1 * chosenEscape.attr("cost"));
+				return item.attr("cost") - otherCost;
+		}
+			  return -(-1 * item.attr("cost"));
+		  }
+		  
+		  function getSelector(item)
+		  {
+			var option = item.attr("option");
+			return $(".selector[option=" + option + "]");
+		  }
+		  
+		var win = $(window);
+		var ratio = (win.height() - 100) / win.width();
+		ratio = ratio * 100;
+		console.log(ratio);
+		$("#pp").css("padding-top", ratio + "%");
+		
+		$(window).on('resize', function(){
+			var win = $(this);
+			var ratio = (win.height() - 100) / win.width();
+			ratio = ratio * 100;
+			console.log(ratio);
+			$("#pp").css("padding-top", ratio + "%");
+		});
+
+		var ua = window.navigator.userAgent;
+        var msie = ua.indexOf("MSIE ");
+
+        if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))
+        {
+			$("#pp").css("color", "white");
+			$(".category, .option, .item, .back1, .back2").css("color", "#439AC5");
+			$("#iewarning").show();
+		}
+  
+		</script>
+    </div>
+  </body>
+</html>
